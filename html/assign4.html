@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Fancify Shamcify</title>
+
+		<!-- link to your script file here -->
+		<script src="../js/assign4.js"></script>
+
+	</head>
+
+	<body>
+		<h1>Fancify my Text</h1>
+		
+		<!-- Your UI controls go here -->
+		<fieldset>
+			<label>Text<br></label>
+			<textarea id="text" rows="4" cols="30"></textarea>
+		</fieldset>
+
+		<fieldset>
+			<label>Fancify<br></label>
+			<button onclick="bigger()">Bigger!</button>
+			<input type="radio" id="fancify" onchange="fancify()">FancyShmancy
+			<input type="radio" id="borify" onchange="borify()">BoringBetty
+			<button onclick="mooify()">Moo</button>
+		</fieldset>
+
+	</body>
+</html>
