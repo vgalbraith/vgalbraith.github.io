@@ -18,14 +18,39 @@
     // Note: In this function, we usually want to set up our event handlers
     // for UI elements on the page.
     // console.log("Window loaded!");
-    document.getElementById("encrypt-it").addEventListener('click', handleClick);
+    document.getElementById("encrypt-it").addEventListener('click', encrypt);
   }
 
   // Add any other functions in this area (you should not implement your
   // entire program in the init function, for similar reasons that
   // you shouldn't write an entire Java program in the main method).
-  function handleClick() {
-    console.log("Button Clicked!");
+  function encrypt() {
+    // console.log("Button Clicked!");
+    let textArea = document.getElementById("input-text");
+    let text = textArea.value;
+    document.getElementById("result").textContent = shiftCipher(text);
+  }
+
+  /**
+   * Returns an encrypted version of the given text, where
+   * each letter is shifted alphabetically ahead by 1 letter,
+   * and 'z' is shifted to 'a' (creating an alphabetical cycle).
+   */
+   function shiftCipher(text) {
+    text = text.toLowerCase();
+    let result = "";
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] < 'a' || text[i] > 'z') {
+        result += text[i];
+      } else if (text[i] == 'z') {
+        result += 'a';
+      } else { // letter is between 'a' and 'y'
+        let letter = text.charCodeAt(i);
+        let resultLetter = String.fromCharCode(letter + 1);
+        result += resultLetter;
+      }
+    }
+    return result;
   }
 
 })();
