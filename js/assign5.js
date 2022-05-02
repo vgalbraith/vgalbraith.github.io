@@ -19,6 +19,7 @@
     // for UI elements on the page.
     // console.log("Window loaded!");
     document.getElementById("encrypt-it").addEventListener('click', encrypt);
+    document.getElementById("reset").addEventListener('click', reset);
   }
 
   // Add any other functions in this area (you should not implement your
@@ -28,7 +29,39 @@
     // console.log("Button Clicked!");
     let textArea = document.getElementById("input-text");
     let text = textArea.value;
-    document.getElementById("result").textContent = shiftCipher(text);
+
+    // Handle font size
+    if (document.getElementById("12pt").checked) {
+      document.getElementById("24pt").checked = false;
+      document.getElementById("result").style.fontSize = "12pt";
+    } else {
+      document.getElementById("12pt").checked = false;
+      document.getElementById("result").style.fontSize = "24pt";
+    }
+
+    // handle All-caps
+    if (document.getElementById("all-caps").checked) {
+      document.getElementById("result").style.textTransform = "uppercase";
+    } else {
+      document.getElementById("result").style.textTransform = "lowercase";
+    }
+
+    // handle cipher type
+    if (document.getElementById("cipher-type").value === "shift") {
+      document.getElementById("result").textContent = shiftCipher(text);
+    } else {
+      document.getElementById("result").textContent = randomCipher(text);
+    }
+    
+  }
+
+  function reset() {
+    document.getElementById("input-text").value = "";
+    document.getElementById("result").textContent = "";
+    document.getElementById("cipher-type").value = "shift";
+    document.getElementById("12pt").checked = true;
+    document.getElementById("24pt").checked = false;
+    document.getElementById("all-caps").checked = false;
   }
 
   /**
@@ -36,7 +69,7 @@
    * each letter is shifted alphabetically ahead by 1 letter,
    * and 'z' is shifted to 'a' (creating an alphabetical cycle).
    */
-   function shiftCipher(text) {
+  function shiftCipher(text) {
     text = text.toLowerCase();
     let result = "";
     for (let i = 0; i < text.length; i++) {
@@ -47,6 +80,22 @@
       } else { // letter is between 'a' and 'y'
         let letter = text.charCodeAt(i);
         let resultLetter = String.fromCharCode(letter + 1);
+        result += resultLetter;
+      }
+    }
+    return result;
+  }
+
+  function randomCipher(text) {
+    text = text.toLowerCase();
+    let result = "";
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] < 'a' || text[i] > 'z') {
+        result += text[i];
+      } else { // letter is between 'a' and 'z'
+        let letter = 'a'.charCodeAt(0);
+        let rand = Math.floor(Math.random() * 26); // 0-25
+        let resultLetter = String.fromCharCode(letter + rand);
         result += resultLetter;
       }
     }
